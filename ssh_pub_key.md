@@ -11,4 +11,4 @@
 
 |  Student Name	        |  Description		          	|  public ssh key  |
 | :-------------------: | :-------------------------: | :----------------------: |
-|             		|				|                         |
+|      Jainik Patel  		|			SSH key               	| jainik@LAPTOP-IDCTER54   |
