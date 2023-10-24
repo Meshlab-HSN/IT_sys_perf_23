@@ -11,4 +11,4 @@
 
 |  Student Name	        |  Description		          	|  public ssh key  |
 | :-------------------: | :-------------------------: | :----------------------: |
-|             		|				|                         |
+| Saritha Godasu 	|		                            		| ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICtppy02z0S+KO3+EIz4+rD0X62LsbFI7+W7p3iKNafo saritha.godasu@gmail.com        |
