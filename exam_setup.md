@@ -38,7 +38,7 @@ See the assignment table below to see which team uses which of the 2.
                                      ___________
                                     |           |
                                     |           |
-                      ______________|           |
+                      ______________|           |<--------- ssh access via 195.37.88.180 port 58400
                      |              |           |
                      |              |           |
                      |              |___________|
