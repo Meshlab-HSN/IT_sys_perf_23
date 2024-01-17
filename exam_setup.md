@@ -67,7 +67,7 @@ We will use 4 different devices for the project:
 - device 1: [Sinovoip Banana Pi R64](https://openwrt.org/toh/sinovoip/bananapi_bpi-r64_v1.1)
 - device 2: [AVM FritzBox 7360 V2](https://openwrt.org/toh/avm/fritz.box.wlan.7360)
 - device 3: [TP-Link WDR4900 v1](https://openwrt.org/toh/tp-link/tl-wdr4900)
-- device 4: [Xiaomi Mi Router 4A Gigabit Edition (V1)](https://openwrt.org/inbox/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition)
+- device 4: [Xiaomi Mi Router 4A Gigabit Edition (V1)](https://openwrt.org/inbox/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition)   
 These devices are different regarding their CPU architecture, their network controllers, their performance, etc. See the links to get further information about those devices and their specs.
 
 Hereby, devices and task variants are assigned to the teams according to the following:
@@ -102,29 +102,30 @@ To separate the devices and their networks from each other, they are grouped int
 - device 2, Switch ports 3 + 4: VLAN 22
 - device 3, Switch ports 5 + 6: VLAN 23
 - device 4, Switch ports 7 + 8: VLAN 24
+
 The controller has access to all of these VLANs, and thus has a connection to all of the devices (using 4 virtual interfaces).
 
 Analoguous to the device and VLAN numbering, each "virtual network" between the device and the controller has its own IP space according to the following list. This list also shows which IP addresses are assigned to the devices and the controller's virtual interfaces:
-- device 1/VLAN 21: 10.21.1.0/24
-	- IP of controller (on ens1.21):      10.21.1.1
-  	- IP of device 1 (on lan1):           10.21.1.2
-- device 2/VLAN 22: 10.22.1.0/24
-  	- IP of controller (on ens1.22):      10.22.1.1
-  	- IP of device 2 (on lan1):           10.22.1.2
-- device 3/VLAN 23: 10.23.1.0/24
-    - IP of controller (on ens1.23):      10.23.1.1
-    - IP of device 3 (on lan1):           10.23.1.2
-- device 4/VLAN 24: 10.24.1.0/24
-	- IP of controller (on ens1.24):      10.24.1.1
-	- IP of device 4 (on lan1):           10.24.1.2
+- device 1/VLAN 21: `10.21.1.0/24`
+    - IP of controller (on `ens1.21`):      `10.21.1.1`
+    - IP of device 1 (on `lan1`):           `10.21.1.2`
+- device 2/VLAN 22: `10.22.1.0/24`
+    - IP of controller (on `ens1.22`):      `10.22.1.1`
+    - IP of device 2 (on `lan1`):           `10.22.1.2`
+- device 3/VLAN 23: `10.23.1.0/24`
+    - IP of controller (on `ens1.23`):      `10.23.1.1`
+    - IP of device 3 (on `lan1`):           `10.23.1.2`
+- device 4/VLAN 24: `10.24.1.0/24`
+    - IP of controller (on `ens1.24`):      `10.24.1.1`
+    - IP of device 4 (on `lan1`):           `10.24.1.2`
 
 > Rule: the switch port with the odd number always carries the connection over which you can access the device.
 
 ---
 ### Network namespaces setup
 
-As we discussed in the lecture, it is important - if not essential - to have a well-designed setup for your experiments that allows for valid and reproducible measurements.
-One important part of such a good design is - especially for network performance experiments - to ensure your device and its operation is not influenced by any undesired and avoidable side-effects.
+As we discussed in the lecture, it is essential to have a well-designed setup for your experiments that allows for valid and reproducible measurements.
+One important part of such a good design - especially for network performance experiments - is to ensure your device and its operation is not influenced by any undesired and avoidable side-effects.
 
 An important part of our experiment is the use of artificial traffic to saturate the network links and measure/judge their performance.
 Looking at the devices we use in this experiment and estimating how "powerful" they are, it should be obvious that performing the traffic generation on the device itself would introduce such aforementioned side-effects and thus distort our measurement.
@@ -194,21 +195,22 @@ So let's look at the connections between one of our devices and the controller o
 
                                              sink subnet
 
-> The namespaces setup that we provide also includes that IP routes are properly set up. This means you should be able out-of-the-box to reach `10.XX.20.1` from `ul-source` and vice versa.
+> The namespaces setup that we provide also includes that IP routes are properly set up. This means you should be able out-of-the-box to reach `10.XX.20.1` from `ul-source`
+and `10.XX.10.1` from `ul-sink`.
 
 The two connections between your device and the controller use two different subnets for better distinction. They are called the `source subnet` and the `sink subnet`, within each there is an own IP address space according to the following list:
 - device 1:
-    - source subnet:        10.21.10.0/24
-    - sink subnet:          10.21.20.0/24
+    - source subnet:        `10.21.10.0/24`
+    - sink subnet:          `10.21.20.0/24`
 - device 2:
-    - source subnet:        10.22.10.0/24
-    - sink subnet:          10.22.20.0/24
+    - source subnet:        `10.22.10.0/24`
+    - sink subnet:          `10.22.20.0/24`
 - device 3:
-    - source subnet:        10.23.10.0/24
-    - sink subnet:          10.23.20.0/24
+    - source subnet:        `10.23.10.0/24`
+    - sink subnet:          `10.23.20.0/24`
 - device 4:
-    - source subnet:        10.24.10.0/24
-    - sink subnet:          10.24.20.0/24
+    - source subnet:        `10.24.10.0/24`
+    - sink subnet:          `10.24.20.0/24`
 
 Using that table and the schematic above you can see which IP addresses you need to use on the controller for your team setup. For example, team 1 would need to use `10.21.10.1` as their traffic source IP and `10.21.20.1` as their traffic sink IP.
 
