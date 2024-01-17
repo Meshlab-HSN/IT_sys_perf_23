@@ -18,16 +18,16 @@
 
 ## Objectives/Tasks
 
-Goal of the project is to measure and compare the forwarding performance of several variants on different devices.
+Goal of the project is to measure and compare the performance of several forwarding techniques on different devices.
 
-Compare the following 4 forwarding techniques/implementions regarding their performance:
+Compare the following four forwarding techniques/implementions regarding their performance:
 - eBPF (TC or XDP)
 - IP forwarding
 - IP forwarding with software offloading
 - IP forwarding with hardware offloading
 
-There are 2 eBPF implementations (TC or XDP) that we will use for comparison, however not every team uses both implementations.
-See the assignment table below to see which team uses which of the 2.
+> There are two eBPF implementations (TC or XDP) that we will use for comparison, however not every team uses both implementations.
+See the assignment table below to see which team uses which of them.
 
 ## Setup overview
 
@@ -38,7 +38,7 @@ See the assignment table below to see which team uses which of the 2.
                                      ___________
                                     |           |
                                     |           |
-                      ______________|           |<--------- ssh access via 195.37.88.180 port 58400
+                      ______________|           |<--------- ssh access via 195.37.88.180 port 58400 with user teamX
                      |              |           |
                      |              |           |
                      |              |___________|
@@ -61,28 +61,29 @@ See the assignment table below to see which team uses which of the 2.
               1            |____________|            |____________|            4
                                  2                         3
 
-The device `Muxer` or `one-to-rule-them-all` is a regular x86_64-based Desktop PC acting as controller for the whole setup and also as a point of access for all of you. The controller has a 10-Gigabit connection to the switch.
+The device `Muxer`/`one-to-rule-them-all` is a regular x86_64-based Desktop-PC acting as controller for the whole setup and also as a point of access for all of you. The controller has a 10-Gigabit connection to the switch.
 
 We will use 4 different devices for the project:
 - device 1: [Sinovoip Banana Pi R64](https://openwrt.org/toh/sinovoip/bananapi_bpi-r64_v1.1)
 - device 2: [AVM FritzBox 7360 V2](https://openwrt.org/toh/avm/fritz.box.wlan.7360)
 - device 3: [TP-Link WDR4900 v1](https://openwrt.org/toh/tp-link/tl-wdr4900)
-- device 4: [Xiaomi Mi Router 4A Gigabit Edition (V1)](https://openwrt.org/inbox/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition)   
+- device 4: [Xiaomi Mi Router 4A Gigabit Edition (V1)](https://openwrt.org/inbox/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition)
+
 These devices are different regarding their CPU architecture, their network controllers, their performance, etc. See the links to get further information about those devices and their specs.
 
-Hereby, devices and task variants are assigned to the teams according to the following:
-| Team | Device  | Task variant |
-|:----:|:-------:|:-------------:|
-| Team 1 | Device 1 (Banana Pi R64) | eBPF TC |
-| Team 2 | Device 1 (Banana Pi R64) | eBPF XDP |
-| Team 3 | Device 2 (FritzBox 7360) | eBPF TC |
-| Team 4 | Device 2 (FritzBox 7360) | eBPF XDP |
-| Team 5 | Device 3 (TP-Link WDR4900) | eBPF TC |
-| Team 6 | Device 3 (TP-Link WDR4900) | eBPF XDP |
-| Team 7 | Device 4 (Xiaomi MiR 4A) | eBPF TC |
-| Team 8 | Device 4 (Xiaomi MiR 4A) | eBPF XDP |
+Hereby, devices and task variants are assigned to the teams as follows:
+| Team | Device  | eBPF variant |
+|:---- |:------- |:------------- |
+| Team 1 | Device 1 (Banana Pi R64) | TC |
+| Team 2 | Device 1 (Banana Pi R64) | XDP |
+| Team 3 | Device 2 (FritzBox 7360) | TC |
+| Team 4 | Device 2 (FritzBox 7360) | XDP |
+| Team 5 | Device 3 (TP-Link WDR4900) | TC |
+| Team 6 | Device 3 (TP-Link WDR4900) | XDP |
+| Team 7 | Device 4 (Xiaomi MiR 4A) | TC |
+| Team 8 | Device 4 (Xiaomi MiR 4A) | XDP |
 
-> You should see that we have 8 teams but only four devices. This means, two teams always need to share one device setup. So organize yourself to ensure all teams can do proper experiments!
+> You should see that we have 8 teams but only four devices. This means, two teams need to share one device setup. Organize yourself to ensure all teams can do proper experiments!
 
 ## Network architecture
 
@@ -138,9 +139,9 @@ However, there is something special about the networking setup on the chosen con
 and you just start the traffic generation on one of the interfaces and receive the traffic on the other one. If you do that, you will likely see an extremely high throughput which is impossible for the device to handle over usual network connections.
 The reason for that is, that the operating system obviously detects that traffic source and sink are the same device and just forwards the traffic using the controllers own forwarding backplane, not using the link(s) to the device.
 
-The Linux kernel, which we are using in all of our operating system, has a feature which can be used to exactly address this issue. This feature is called `namespaces`. 
-The general idea of `namespaces` is to partition the available kernel resources for different sets of processes. `namespaces` are used e.g. for containers. To learn more about `namespaces`, see the wiki page [here](https://en.wikipedia.org/wiki/Linux_namespaces).
-In a nutshell, `namespaces` allow us to create multiple network interfaces on our controller which have no idea of each other, also allowing us to generate and receive traffic on one device.
+The Linux kernel, which we are using here, has a feature called `namespaces`, which can be used to exactly address this issue.   
+The general idea of `namespaces` is to partition the available kernel resources for different sets of processes (`namespaces` are used e.g. for containers). To learn more about `namespaces`, see the wiki page [here](https://en.wikipedia.org/wiki/Linux_namespaces).   
+In a nutshell, `namespaces` allow us to create multiple network interfaces on our controller which have no idea of each other, also allowing us to generate and receive traffic on the same device.
 
 If we leave out the switch in our setup for a moment, this essentially boils down to the following connections between the controller and the device:
 
@@ -162,7 +163,7 @@ If we leave out the switch in our setup for a moment, this essentially boils dow
 According to the schematic, the interfaces on the controller still transmit data over the common physical link. But since the namespaces completely isolate the interfaces from each other,
 we are able to send out traffic on `if0` and receive it on `if1` over the real link, not the forwarding backplane of the controller.
 
-**TLDR: For each device there are 2 namespaces (corresponding to the two cable connections between the device and the switch) which you will use for traffic generation and reception.**
+> TLDR: For each device there are 2 namespaces (corresponding to the two cable connections between the device and the switch) which you will use for traffic generation and reception.
 
 The namespaces are generated during startup of the controller, resulting in:
 - device 1:
@@ -182,7 +183,7 @@ The namespaces are generated during startup of the controller, resulting in:
 
 ## Using the setup
 
-Now that you know how the setup in general looks like and how we achieve what we want using `namespaces`, it's time for you to know how you can use it. For that you basically need to know which IP addresses to use when running `iperf3` as client and server.
+Now that you know how the setup in general looks like and how we achieve what we want using `namespaces`, it's time for you to know how you can use it. For that you basically need to know which IP addresses to use when running `iperf3` as client and server.   
 So let's look at the connections between one of our devices and the controller on the Layer-3 viewpoint, the IP layer:
 
                                             source subnet
@@ -217,8 +218,8 @@ Using that table and the schematic above you can see which IP addresses you need
 ---
 ### How to use iperf3 in this setup
 
-We cannot completely avoid that you somehow have to deal with the namespaces here. Running plain commands like `ping 10.21.10.2` won't work here. The reason for this is, that Linux just tries to use the default namespace
-if you do not specify a different namespace to use.
+We cannot completely avoid that you somehow have to deal with the namespaces here. Running plain commands like `ping 10.21.10.2` won't work here.
+The reason for this is, that Linux just tries to use the default namespace if you do not specify a different namespace to use.
 Since the `source` and `sink` subnets do not live within the default namespaces but in our separate namespaces, we always need to tell Linux that it has to use a specific namespace for the command we wan't to execute.
 
 The general approach for this is using the `ip` command (btw. the `ip` is also used to set up namespaces) with its dedicated subcommand 'netns':
@@ -247,7 +248,9 @@ You should see that the client connects to the server, transmits data and both c
 ## How to switch between forwarding techniques
 
 As already mentioned, we are using multiple forwarding techniques that we want to compare. To do that, you need to switch between them for your experiments. Here's how to do that.
+
 The eBPF implementations need to be enabled/disabled using two scripts the we provide to you. On each device, you can find the scripts `tc` and `xdp` in the home directory of user root (`/root`).
+
 The other techniques are enabled/disabled via the firewall configuration.
 
 ---
