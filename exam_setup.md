@@ -287,3 +287,5 @@ To turn **off** eBPF-TC, run `/root/tc unload`.
 
 To turn **on** eBPF-XDP, run `/root/xdp load`.   
 To turn **off** eBPF-XDP, run `/root/xdp unload`.
+
+These scripts will use the `*.o` compiled binaries which are in the same folder and contain the eBPF program. If you are interested in how the programs work, have a look [here](https://github.com/tk154/eBPF-Tests/blob/main/programs/kernel/router_map.c).
