@@ -5,6 +5,7 @@
 - [Objectives/Tasks](#objectivestasks)
 - [Setup overview](#setup-overview)
 - [Network architecture](#network-architecture)
+    - [Access to your device](#access-to-your-device)
     - [Network namespaces setup](#network-namespaces-setup)
 - [Using the setup](#using-the-setup)
     - [How to use iperf3 in this setup](#how-to-use-iperf3-in-this-setup)
@@ -119,6 +120,18 @@ Analoguous to the device and VLAN numbering, each "virtual network" between the 
     - IP of device 4 (on `lan1`):           `10.24.1.2`
 
 > Rule: the switch port with the odd number always carries the connection over which you can access the device.
+
+---
+### Access to your device
+
+In order to switch between forwarding techniques, which is explained later, you need to access your device. Each team is only allowed to access the device assigned to them.
+Each team has an SSH key in `~/.ssh/private/device.key` on the controller which can only be used on the assigned device. You can access the device by manually specifying the IP (see list above), user (root) and the key file.
+However, we already created an SSH config entry (in `~/.ssh/config`) for convenient access.
+
+TLDR: To access you device, just log in to the controller with your team account and type:
+```bash
+ssh device
+```
 
 ---
 ### Network namespaces setup
