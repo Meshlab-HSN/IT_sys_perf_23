@@ -1,7 +1,3 @@
-# STILL WORK-IN-PROGRESS, DO NOT USE FOR NOW!!
-
----
-
 # Measurement setup for the examination projects
 
 ## TOC
