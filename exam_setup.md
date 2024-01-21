@@ -29,6 +29,8 @@ Compare the following four forwarding techniques/implementions regarding their p
 > There are two eBPF implementations (TC or XDP) that we will use for comparison, however not every team uses both implementations.
 See the assignment table below to see which team uses which of them.
 
+Use the below explained setup to fulfil the task. Use iperf3 for traffic generation and reception, and tcpdump to collect data during your measurement. For analysis and evaluation, you can use e.g. Python or R with their provided data analysis and plotting facilities.
+
 ## Setup overview
 
 
