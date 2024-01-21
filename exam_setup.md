@@ -291,12 +291,28 @@ After making the changes, save the file, exit the editor and run `/etc/init.d/fi
 ---
 ### eBPF
 
-Make sure that the abovementioned options `flow_offloading` and `flow_offloading_hw` are set to `0` when using eBPF.
+Make sure that the above-mentioned options `flow_offloading` and `flow_offloading_hw` are set to `0` when using eBPF and do a `/etc/init.d/firewall restart` to ensure that they are applied.
+
+Before you start your measurement, ensure with `bpftool prog show` that no eBPF program is currently loaded. If you see an output similar to the following:
+```
+# bpftool prog show
+44: xdp  name router_map  tag 34007055141dda23  gpl
+	loaded_at 2024-01-21T17:42:34+0000  uid 0
+	xlated 1360B  jited 1584B  memlock 4096B  map_ids 11
+	btf_id 66
+48: xdp  name router_map  tag 34007055141dda23  gpl
+	loaded_at 2024-01-21T17:42:34+0000  uid 0
+	xlated 1360B  jited 1584B  memlock 4096B  map_ids 12
+	btf_id 72
+```
+... then there is still an eBPF program loaded, which you have to turn off/unload first. If there is no output, then no eBPF program is loaded, so you are good to go.
 
 To turn **on** eBPF-TC, run `/root/tc load`.   
 To turn **off** eBPF-TC, run `/root/tc unload`.
 
 To turn **on** eBPF-XDP, run `/root/xdp load`.   
 To turn **off** eBPF-XDP, run `/root/xdp unload`.
+
+Make sure to unload the eBPF program after you finish your measurement so that you don't ruin the experiment of the other team.
 
 These scripts will use the `*.o` compiled binaries which are in the same folder and contain the eBPF program. If you are interested in how the programs work, have a look [here](https://github.com/tk154/eBPF-Tests/blob/main/programs/kernel/router_map.c).
