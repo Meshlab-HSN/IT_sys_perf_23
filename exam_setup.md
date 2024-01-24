@@ -45,6 +45,12 @@ Use the below explained setup to fulfil the task. Use iperf3 for traffic generat
 - Present results + diskussion
 	- significance of differences?
 
+**What you need to provide to us:**
+- File of your work (markdown in Git, PDF, Word)
+- File of presentation
+- raw tcpdump data
+- analysis script or code (e.g. Python / R script / Excel)
+
 ## Setup overview
 
 
@@ -77,7 +83,7 @@ Use the below explained setup to fulfil the task. Use iperf3 for traffic generat
               1            |____________|            |____________|            4
                                  2                         3
 
-The device `Muxer`/`one-to-rule-them-all` is a regular x86_64-based Desktop-PC acting as controller for the whole setup and also as a point of access for all of you. The controller has a 10-Gigabit connection to the switch.
+The device `Muxer`/`one-to-rule-them-all` is a regular x86_64-based Desktop-PC (with a Intel i5 750 (4) @ 2.661GHz CPU) acting as controller for the whole setup and also as a point of access for all of you. The controller has a 10-Gigabit connection to the switch.
 
 We will use 4 different devices for the project:
 - device 1: [Sinovoip Banana Pi R64](https://openwrt.org/toh/sinovoip/bananapi_bpi-r64_v1.1)
