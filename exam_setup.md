@@ -3,6 +3,7 @@
 ## TOC
 
 - [Objectives/Tasks](#objectivestasks)
+    - [Outline of your exam project / What you need to cover and document](#outline-of-your-exam-project--what-you-need-to-cover-and-document)
 - [Setup overview](#setup-overview)
 - [Network architecture](#network-architecture)
     - [Access to your device](#access-to-your-device)
@@ -27,6 +28,22 @@ Compare the following four forwarding techniques/implementions regarding their p
 See the assignment table below to see which team uses which of them.
 
 Use the below explained setup to fulfil the task. Use iperf3 for traffic generation and reception, and tcpdump to collect data during your measurement. For analysis and evaluation, you can use e.g. Python or R with their provided data analysis and plotting facilities.
+
+### Outline of your exam project / What you need to cover and document
+
+- Experiment + Goal/Objectives
+	- Setup-Description (Router specs, etc.) (**DON'T JUST COPY OUR DESCRIPTION!**)
+	- Experiment plan (e.g. how many repetations, ...)
+	- Error discussion: (e.g. potential systematic errors, random errors, ...)
+	- Confidence analysis
+- Data analysis
+	- Throughput per variant: mean/median?, variance, ...
+- Plotting results
+	- know your default statistic values
+	- use manual scaling for x and y axis
+	- fin a good plot arrangement
+- Present results + diskussion
+	- significance of differences?
 
 ## Setup overview
 
