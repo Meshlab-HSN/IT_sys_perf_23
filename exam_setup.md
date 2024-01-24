@@ -258,7 +258,7 @@ Since the `source` and `sink` subnets do not live within the default namespaces 
 
 The general approach for this is using the `ip` command (btw. the `ip` is also used to set up namespaces) with its dedicated subcommand 'netns':
 ```bash
-ip netns exec <namespace> <command>
+sudo ip netns exec <namespace> <command>
 ```
 To execute a command in a specific namespace you use the syntax above, telling the `ip` command which namespace to use followed by your command.
 
@@ -267,13 +267,13 @@ To learn more about `iperf3`, try to run `man iperf3` in the command line or hav
 
 1. Start `iperf3` server in your sink namespace + subnet:
 ```bash
-ip netns exec itsys-dX-sink iperf3 -s
+sudo ip netns exec itsys-dX-sink iperf3 -s
 ```
 > Without specifying further options, `iperf3` will listen for incoming connections on all interfaces, including `ul-sink` with its IP `10.XX.20.1`
 
 2. Start `iperf3` client in you source namespace + subnet:
 ```bash
-ip netns exec itsys-dX-source iperf3 -c 10.YY.20.1
+sudo ip netns exec itsys-dX-source iperf3 -c 10.YY.20.1
 ```
 
 You should see that the client connects to the server, transmits data and both client and server should print statistics each second about the achieved throughput.
