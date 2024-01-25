@@ -51,6 +51,9 @@ Use the below explained setup to fulfil the task. Use iperf3 for traffic generat
 - raw tcpdump data
 - analysis script or code (e.g. Python / R script / Excel)
 
+We will use [Zenodo](https://zenodo.org) for uploading your work. Zenodo is a research-focused cloud service hosted by CERN and allows to upload your research results, data, code, etc. and have that referenceable by a DOI number.
+Head over to the web page, create a user account and use it for uploading your work when you finished it.
+
 ## Setup overview
 
 
