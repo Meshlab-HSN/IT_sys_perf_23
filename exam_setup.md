@@ -90,7 +90,7 @@ The device `Muxer`/`one-to-rule-them-all` is a regular x86_64-based Desktop-PC (
 
 We will use 4 different devices for the project:
 - device 1: [Sinovoip Banana Pi R64](https://openwrt.org/toh/sinovoip/bananapi_bpi-r64_v1.1)
-- device 2: [AVM FritzBox 7360 V2](https://openwrt.org/toh/avm/fritz.box.wlan.7360)
+- device 2: [AVM FritzBox 7360 V2](https://openwrt.org/toh/avm/avm_fritz_box_7360_v2)
 - device 3: [TP-Link WDR4900 v1](https://openwrt.org/toh/tp-link/tl-wdr4900)
 - device 4: [Xiaomi Mi Router 4A Gigabit Edition (V1)](https://openwrt.org/inbox/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition)
 
