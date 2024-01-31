@@ -306,10 +306,10 @@ config defaults
 
 | Goal | What to do |
 |:---- |:---------- |
-|enable 'IP forwarding with software offloading' | change the value of `flow_offloading` to `1`. |
-|disable 'IP forwarding with software offloading' | change the value of `flow_offloading` to `0`. |
-|enable 'IP forwarding with hardware offloading' | change the value of `flow_offloading_hw` to `1`. |
-|disable 'IP forwarding with hardware offloading' | change the value of `flow_offloading_hw` to `0`. |
+|enable 'IP forwarding with software offloading' | change the value of `flow_offloading` to `1` and the value of `flow_offloading_hw` to `0`. |
+|disable 'IP forwarding with software offloading' | change the value of `flow_offloading` to `0` the value of `flow_offloading_hw` to `0`. |
+|enable 'IP forwarding with hardware offloading' | change the value of `flow_offloading` to `1` and the value of `flow_offloading_hw` to `1`. |
+|disable 'IP forwarding with hardware offloading' | change the value of `flow_offloading` to `1` and the value of `flow_offloading_hw` to `0`. |
 |use 'IP forwarding without offloading' | change both options `flow_offloading` and `flow_offloading_hw` to `0`. |
 
 After making the changes, save the file, exit the editor and run `/etc/init.d/firewall restart` to restart the firewall and apply the changes.
