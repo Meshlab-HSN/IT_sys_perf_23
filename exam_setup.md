@@ -10,6 +10,7 @@
     - [Network namespaces setup](#network-namespaces-setup)
 - [Using the setup](#using-the-setup)
     - [How to use iperf3 in this setup](#how-to-use-iperf3-in-this-setup)
+    - [How to collect trace data](#how-to-collect-trace-data)
 - [How to switch between forwarding techniques](#how-to-switch-between-forwarding-techniques)
     - [IP forwarding](#ip-forwarding)
     - [eBPF](#ebpf)
@@ -280,6 +281,26 @@ sudo ip netns exec itsys-dX-source iperf3 -c 10.YY.20.1
 ```
 
 You should see that the client connects to the server, transmits data and both client and server should print statistics each second about the achieved throughput.
+
+### How to collect trace data
+
+For trace collection we will use `tcpdump`. `tcpdump` is a tool that hooks onto a network interface and captures all incoming and outgoing packets,
+and can print that on the screen or write in into a pcap file. To use that in our setup, **you have to run `tcpdump` while you are running an iperf3 session.**
+Of course, you need to run `tcpdump` also on the controller device and within the namespace (i.e. in the sink namespace).
+
+Similar to how we use iperf3, you can run tcpdump with:
+```bash
+sudo ip netns exec itsys-dX-sink tcpdump -i ul-sink -w trace_nooffload.pcap
+```
+This command starts `tcpdump` in the `itsys-dX-sink` namespace and write all collected data into the file `trace_nooffload.pcap`. If you only specify the filename (without any preceeding path) it will be saved in the directory where you're currently at. If you just log in on the controller without doing anything, this is `~/` or `/home/teamX`.
+You should use meaningful file names so you know which file belongs to which forwarding situation (e.g. `trace_nooffload.pcap` for no offloading, `trace_hw_offload.pcap` for hardware offloading, etc.). 
+
+After your iperf3 run has finished and tcpdump has collected the traces, you need to stop it manually by pressing Ctrl and C simultaneously.
+Then you have to repeat that procedure for every measurement run you have to do.
+
+When you have finished all measurement runs, you need to download the traces to your laptop. To do this, just use the tool `croc` on the controller to send the files to your laptop, or use `scp` from your laptop to download the files from the controller. See the help pages of both tools [here](https://linux.die.net/man/1/scp) and [here](https://github.com/schollz/croc?tab=readme-ov-file#usage) if you don't know how to use these tools (or ask Google or ChatGPT).
+
+After you downloaded these files, you can proceed with your analysis and evaluation.
 
 ---
 ## How to switch between forwarding techniques
