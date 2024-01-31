@@ -63,7 +63,7 @@ Head over to the web page, create a user account and use it for uploading your w
                                      ___________
                                     |           |
                                     |           |
-                      ______________|           |<--------- ssh access via 195.37.88.180 port 58400 with user teamX
+                      ______________|           |<--------- ssh access via 195.37.88.189 port 58400 with user teamX
                      |              |           |
                      |              |           |
                      |              |___________|
