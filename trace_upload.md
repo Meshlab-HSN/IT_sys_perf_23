@@ -6,7 +6,7 @@ Please fill in the table below the reference to where you uploaded you trace dat
 
 |  Team        |  Reference | 
 | :-------------------: | :---------------------------: |
-| Team 1 | |
+| Team 1 | https://doi.org/10.5281/zenodo.10641991 , https://doi.org/10.5281/zenodo.10641763 |
 | Team 2 | https://doi.org/10.5281/zenodo.10641830 |
 | Team 3 | https://doi.org/10.5281/zenodo.10641141 |
 | Team 4 | https://doi.org/10.5281/zenodo.10640151 |
