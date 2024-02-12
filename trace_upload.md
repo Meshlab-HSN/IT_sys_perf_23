@@ -13,4 +13,4 @@ Please fill in the table below the reference to where you uploaded you trace dat
 | Team 5 | https://github.com/EldhosePaul-2023/meshlab/tree/main, https://doi.org/10.5281/zenodo.10637773 |
 | Team 6 | https://doi.org/10.5281/zenodo.10640335 |
 | Team 7 | https://doi.org/10.5281/zenodo.10641648 |
-| Team 8 |[1https://doi.org/10.5281/zenodo.10641490|
+| Team 8 | https://doi.org/10.5281/zenodo.10641490 |
